@@ -8,7 +8,7 @@
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar">
-		<a class="navbar-brand" href="#">APAP</a>
+		<a class="navbar-brand" href="#" th:text="${titleNav}"></a>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
@@ -20,7 +20,6 @@
 	
 	
 	<h2>Hello!</h2>
-	
 	<h3>Tambah Pilot</h3>
 	<form th:action="@{/pilot/update}" th:object="${pilot}" method = "POST">
 		<input type="hidden" name="licenseNumber" th:field="${pilot.licenseNumber}"/>

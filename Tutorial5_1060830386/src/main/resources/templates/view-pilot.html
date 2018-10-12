@@ -8,7 +8,7 @@
 
 <body>
 	<nav th:replace="fragments/fragment :: navbar">
-		<a class="navbar-brand" href="#">APAP</a>
+		<a class="navbar-brand" href="#" th:text="${titleNav}"></a>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
@@ -17,6 +17,7 @@
 			</ul>
 		</div>
 	</nav>
+	
 	<h3 th:text="'License Number: ' + ${pilot.licenseNumber}"></h3>
 	<h3 th:text="'Name: '+${pilot.name}"></h3>
 	<h3 th:text="'Fly Hour: '+${pilot.flyHour}"></h3>
@@ -65,25 +66,6 @@
 
 
 
-	<h2>dari siniiii</h2>
-	<table>
-		<tr>
-			<th>Origin</th>
-			<th>Destination</th>
-			<th>Time</th>
-			<th>flightNumber</th>
-			<th>id</th>
-		</tr>
-		<tr th:each="flight,iterStat : ${pilots}">
-    		<td th:text="${flight.origin}">origin</td>
-    		<td th:text="${flight.destination}">destination</td>
-   			<td th:text="${flight.time}">time</td>
-   			<td th:text="${flight.flightNumber}">flightNumber</td>
-   			<td th:text="${pilot.id}">flightNumber</td>
-   			 
- 		</tr>
-	</table>
-	<h2>sampe sini udah gaada</h2>
 	<td><a th:href="@{/flight/add/} + ${pilot.licenseNumber}" >Add Flight</a></td>
 	<td><a th:href="@{/pilot/update/}+ ${pilot.licenseNumber}" th:objcet="${pilot}"  method = GET text>Update Me</a></td>
 </body>

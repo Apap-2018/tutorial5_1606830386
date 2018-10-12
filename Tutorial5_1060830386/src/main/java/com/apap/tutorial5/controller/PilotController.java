@@ -21,19 +21,22 @@ public class PilotController {
 	private PilotService pilotService;
 	
 	@RequestMapping("/")
-	private String home() {
+	private String home(Model model) {
+		model.addAttribute("titleNav", "APAP");
 		return "home";
 	}
 	
 	@RequestMapping(value = "/pilot/add", method = RequestMethod.GET)
 	private String add(Model model) {
 		model.addAttribute("pilot", new PilotModel());
+		model.addAttribute("titleNav", "Tambah Pilot");
 		return "addPilot";
 	}
 	
 	@RequestMapping(value = "/pilot/add", method = RequestMethod.POST)
-	private String addPilotSubmit(@ModelAttribute PilotModel pilot) {
+	private String addPilotSubmit(@ModelAttribute PilotModel pilot,Model model) {
 		pilotService.addPilot(pilot);
+		model.addAttribute("titleNav", "Tambah Pilot");
 		return "add";
 	}
 	
@@ -43,7 +46,7 @@ public class PilotController {
 		PilotModel archive = pilotService.getPilotModelByLicenseNumber(licenseNumber);
 		//List<FlightModel> pilots = archive.getPilotFlight();
 		model.addAttribute("pilot", archive);
-		//model.addAttribute("pilots", pilots);
+		model.addAttribute("titleNav", "Lihat Pilot");
 		return "view-pilot";
 	}
 	
@@ -59,6 +62,7 @@ public class PilotController {
 	private String deletePilot(@RequestParam String licenseNumber, Model model) {
 		PilotModel pilot = pilotService.getPilotModelByLicenseNumber(licenseNumber);		
 		pilotService.deletePilot(pilot);
+		model.addAttribute("titleNav", "Delete Pilot");
 		return "delete";
 	}
 	
@@ -66,11 +70,13 @@ public class PilotController {
 	private String UpdatePilot(@PathVariable String licenseNumber, Model model) {
 		PilotModel pilot = pilotService.getPilotModelByLicenseNumber(licenseNumber);		
 		model.addAttribute("pilot", pilot);
+
+		model.addAttribute("titleNav", "Update Pilot");
 		return "update-pilot";
 	}
 	
 	@RequestMapping(value="/pilot/update", method = RequestMethod.POST)
-	private String UpdatePilot(@ModelAttribute PilotModel newPilot) {
+	private String UpdatePilot(@ModelAttribute PilotModel newPilot, Model model) {
 		String licenseNumber = newPilot.getLicenseNumber();
 		String name = newPilot.getName();
 		int flyHour = newPilot.getFlyHour();
@@ -81,7 +87,7 @@ public class PilotController {
 		
 		pilot.setFlyHour(flyHour);
 		pilot.setName(name);
-		
+		model.addAttribute("titleNav", "Update Pilot");
 		pilotService.addPilot(pilot);
 		return "update";
 	}
